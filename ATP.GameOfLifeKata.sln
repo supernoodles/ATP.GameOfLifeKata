@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.GameOfLifeKata.Source", "ATP.GameOfLifeKata.Source\ATP.GameOfLifeKata.Source.csproj", "{8E44546E-816C-4959-A3A9-E1E25525B883}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.GameOfLifeKata.Tests", "ATP.GameOfLifeKata.Tests\ATP.GameOfLifeKata.Tests.csproj", "{12D83498-C837-41F1-97A3-298B0F91F5ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E44546E-816C-4959-A3A9-E1E25525B883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E44546E-816C-4959-A3A9-E1E25525B883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E44546E-816C-4959-A3A9-E1E25525B883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E44546E-816C-4959-A3A9-E1E25525B883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D83498-C837-41F1-97A3-298B0F91F5ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D83498-C837-41F1-97A3-298B0F91F5ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D83498-C837-41F1-97A3-298B0F91F5ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D83498-C837-41F1-97A3-298B0F91F5ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36440BEC-C11F-47D3-8267-01D445BCEB20}
+	EndGlobalSection
+EndGlobal
