@@ -15,31 +15,19 @@
 
         private bool Equals(GameOfLife other)
         {
-            if (_seed != null)
-            {
-                return false;
-            }
-            return true;
+            return Equals(_seed, other._seed);
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
+            return ReferenceEquals(this, obj) || obj is GameOfLife other && Equals(other);
+        }
 
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != this.GetType())
-            {
-                return false;
-            }
-
-            return Equals((GameOfLife)obj);
+        public override int GetHashCode()
+        {
+            return (_seed != null 
+                ? _seed.GetHashCode() 
+                : 0);
         }
     }
 }
