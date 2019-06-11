@@ -3,6 +3,7 @@ namespace ATP.GameOfLifeKata.Tests
 {
     using FluentAssertions;
     using NUnit.Framework;
+    using Source;
 
     [TestFixture]
     public class GameOfLifeShould
@@ -17,26 +18,18 @@ namespace ATP.GameOfLifeKata.Tests
 
             game.Should().Be(deadGame);
         }
-    }
 
-    public class GameOfLife
-    {
-        public void Tick()
+        [Test]
+        public void SeededGame_ShouldNotEqualDeadGame()
         {
-        }
+            var deadGame = new GameOfLife();
 
-        protected bool Equals(GameOfLife other)
-        {
-            return true;
-        }
+            var seed = new bool[3, 3];
+            seed[1, 1] = true;
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((GameOfLife) obj);
-        }
+            var seededGame = new GameOfLife(seed);
 
+            seededGame.Should().NotBe(deadGame);
+        }
     }
 }
