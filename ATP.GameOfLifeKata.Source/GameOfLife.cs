@@ -15,6 +15,21 @@
 
         private bool Equals(GameOfLife other)
         {
+            if (_seed == null && other._seed == null)
+            {
+                return true;
+            }
+
+            if (_seed == null || other._seed == null)
+            {
+                return false;
+            }
+
+            if (_seed[1, 1] && other._seed[1, 1])
+            {
+                return true;
+            }
+
             return Equals(_seed, other._seed);
         }
 
