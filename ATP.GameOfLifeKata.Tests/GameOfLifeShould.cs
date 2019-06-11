@@ -43,5 +43,21 @@ namespace ATP.GameOfLifeKata.Tests
 
             game2.Should().Be(game1);
         }
+
+        [Test]
+        public void SeededGame_ShouldNotEqualDifferentSeededGame()
+        {
+            var seed1 = new bool[3, 3];
+            seed1[1, 1] = true;
+
+            var seed2 = new bool[3, 3];
+            seed2[0, 1] = true;
+
+            var game1 = new GameOfLife(seed1);
+            var game2 = new GameOfLife(seed2);
+
+            game2.Should().NotBe(game1);
+        }
+
     }
 }
