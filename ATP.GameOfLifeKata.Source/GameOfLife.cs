@@ -2,7 +2,7 @@
 {
     public sealed class GameOfLife
     {
-        private readonly bool[,] _seed;
+        private  bool[,] _seed;
 
         public GameOfLife(bool[,] seed = null)
         {
@@ -11,6 +11,13 @@
 
         public void Tick()
         {
+            if (_seed == null)
+            {
+                return;
+            }
+
+            var dimension = _seed.GetUpperBound(0);
+            _seed = new bool[dimension,dimension];
         }
 
         private bool Equals(GameOfLife other)

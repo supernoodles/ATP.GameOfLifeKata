@@ -9,14 +9,14 @@ namespace ATP.GameOfLifeKata.Tests
     public class GameOfLifeShould
     {
         [Test]
-        public void ShouldReturnDeadGrid_GivenDeadGrid()
+        public void ShouldReturnNullGame_GivenNullGame()
         {
-            var deadGame = new GameOfLife();
+            var nullGame = new GameOfLife();
             var game = new GameOfLife();
 
             game.Tick();
 
-            game.Should().Be(deadGame);
+            game.Should().Be(nullGame);
         }
 
         [Test]
@@ -109,5 +109,18 @@ namespace ATP.GameOfLifeKata.Tests
             game2.Should().NotBe(game1);
         }
 
+        [Test]
+        public void SeededGame1Live_ShouldEqualDeadGameAfterTick()
+        {
+            var seed = new bool[3, 3];
+            seed[1, 1] = true;
+
+            var deadGame = new GameOfLife(new bool[3, 3]);
+
+            var game = new GameOfLife(seed);
+            game.Tick();
+
+            game.Should().Be(deadGame);
+        }
     }
 }
