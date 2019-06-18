@@ -16,8 +16,14 @@
                 return;
             }
 
+            if (_seed[0, 0] && _seed[1, 0] && _seed[0, 1] && _seed[1, 1] ||
+                _seed[1, 1] && _seed[2, 1] && _seed[2, 2] && _seed[1, 2])
+            {
+                return;
+            }
+
             var dimension = _seed.GetUpperBound(0);
-            _seed = new bool[dimension,dimension];
+            _seed = new bool[dimension + 1, dimension + 1];
         }
 
         private bool Equals(GameOfLife other)

@@ -122,5 +122,44 @@ namespace ATP.GameOfLifeKata.Tests
 
             game.Should().Be(deadGame);
         }
+
+        [Test]
+        public void SeedGame4Square_ShouldEqualGame4SquareAfterTick()
+        {
+            var seed = new bool[3, 3];
+            seed[0, 0] = true;
+            seed[1, 0] = true;
+            seed[0, 1] = true;
+            seed[1, 1] = true;
+
+            var compareGame = new GameOfLife(seed);
+            var game = new GameOfLife(seed);
+            game.Tick();
+
+            game.Should().Be(compareGame);
+        }
+
+        [Test]
+        public void SeededGameWith4CellsInSquare_ShouldBeSameAfterTick()
+        {
+            var expectedSeed = new bool[3, 3];
+            expectedSeed[1, 1] = true;
+            expectedSeed[2, 1] = true;
+            expectedSeed[2, 2] = true;
+            expectedSeed[1, 2] = true;
+
+            var seed = new bool[3, 3];
+            seed[1, 1] = true;
+            seed[2, 1] = true;
+            seed[2, 2] = true;
+            seed[1, 2] = true;
+
+            var game = new GameOfLife(seed);
+            var finalState = new GameOfLife(expectedSeed);
+
+            game.Tick();
+
+            game.Should().Be(finalState);
+        }
     }
 }
