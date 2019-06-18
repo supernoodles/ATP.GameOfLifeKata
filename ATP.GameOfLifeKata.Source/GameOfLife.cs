@@ -2,6 +2,60 @@
 {
     public sealed class GameOfLife
     {
+        private sealed class Position
+        {
+            public Position(int row, int column)
+            {
+                Row = row;
+                Column = column;
+            }
+
+            public int Row { get;}
+            public int Column { get;}
+        }
+
+        private int CountLiveNeighbours(Position cell)
+        {
+            int count = 0;
+
+            if (cell.Row - 1 >= 0 
+                && cell.Column - 1 >= 0 
+                && _seed[cell.Row - 1, cell.Column - 1])
+            {
+                count++;
+            }
+
+            if (cell.Row - 1 >= 0
+                && _seed[cell.Row - 1, cell.Column])
+            {
+                count++;
+            }
+
+            if (cell.Row - 1 >= 0
+                && cell.Column + 1 <= _seed.GetUpperBound(0) 
+                && _seed[cell.Row - 1, cell.Column + 1])
+            {
+                count++;
+            }
+
+
+            if (cell.Column - 1 <= 0
+                && _seed[cell.Row - 1, cell.Column + 1])
+            {
+                count++;
+            }
+
+
+
+
+
+
+            return count;
+
+
+        }
+
+
         private  bool[,] _seed;
 
         public GameOfLife(bool[,] seed = null)

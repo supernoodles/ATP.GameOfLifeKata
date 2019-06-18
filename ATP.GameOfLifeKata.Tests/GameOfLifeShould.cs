@@ -138,11 +138,11 @@ namespace ATP.GameOfLifeKata.Tests
             seed[0, 1] = true;
             seed[1, 1] = true;
 
-            var compareGame = new GameOfLife(expectedSeed);
+            var finalState = new GameOfLife(expectedSeed);
             var game = new GameOfLife(seed);
             game.Tick();
 
-            game.Should().Be(compareGame);
+            game.Should().Be(finalState);
         }
 
         [Test]
