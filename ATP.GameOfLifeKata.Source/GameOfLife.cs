@@ -17,7 +17,8 @@
             }
 
             if (_seed[0, 0] && _seed[1, 0] && _seed[0, 1] && _seed[1, 1] ||
-                _seed[1, 1] && _seed[2, 1] && _seed[2, 2] && _seed[1, 2])
+                _seed[1, 1] && _seed[2, 1] && _seed[2, 2] && _seed[1, 2] ||
+                _seed[0, 1] && _seed[0, 2] && _seed[1, 1] && _seed[1, 2])
             {
                 return;
             }

@@ -126,13 +126,19 @@ namespace ATP.GameOfLifeKata.Tests
         [Test]
         public void SeedGame4Square_ShouldEqualGame4SquareAfterTick()
         {
+            var expectedSeed = new bool[3, 3];
+            expectedSeed[0, 0] = true;
+            expectedSeed[1, 0] = true;
+            expectedSeed[0, 1] = true;
+            expectedSeed[1, 1] = true;
+
             var seed = new bool[3, 3];
             seed[0, 0] = true;
             seed[1, 0] = true;
             seed[0, 1] = true;
             seed[1, 1] = true;
 
-            var compareGame = new GameOfLife(seed);
+            var compareGame = new GameOfLife(expectedSeed);
             var game = new GameOfLife(seed);
             game.Tick();
 
@@ -161,5 +167,29 @@ namespace ATP.GameOfLifeKata.Tests
 
             game.Should().Be(finalState);
         }
+
+        [Test]
+        public void SeededGameWith4CellsIntTopRightSquare_ShouldBeSameAfterTick()
+        {
+            var expectedSeed = new bool[3, 3];
+            expectedSeed[0, 1] = true;
+            expectedSeed[0, 2] = true;
+            expectedSeed[1, 1] = true;
+            expectedSeed[1, 2] = true;
+
+            var seed = new bool[3, 3];
+            seed[0, 1] = true;
+            seed[0, 2] = true;
+            seed[1, 1] = true;
+            seed[1, 2] = true;
+
+            var game = new GameOfLife(seed);
+            var finalState = new GameOfLife(expectedSeed);
+
+            game.Tick();
+
+            game.Should().Be(finalState);
+        }
+
     }
 }
