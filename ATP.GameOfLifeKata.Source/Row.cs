@@ -1,7 +1,5 @@
 ﻿namespace ATP.GameOfLifeKata.Source
 {
-    using System;
-
     public class Row
     {
         protected bool Equals(Row other)
@@ -11,11 +9,6 @@
             for (var i = 0; i < _row.Length; i++)
             {
                 rowsAreEqual &= _row[i] == other._row[i];
-
-                if (_row[i] != other._row[i])
-                {
-                    Console.WriteLine($"Diff at {i}");
-                }
             }
 
             return rowsAreEqual;
