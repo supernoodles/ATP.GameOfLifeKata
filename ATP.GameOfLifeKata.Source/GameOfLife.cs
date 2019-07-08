@@ -10,58 +10,54 @@
                 Column = column;
             }
 
-            public int Row { get;}
-            public int Column { get;}
+            public int Row { get; }
+            public int Column { get; }
         }
 
-        private int CountLiveNeighbours(Position cell)
+        private Position GetNeighbouringCell(Position cell, int rowOffset, int columnOffset)
         {
-            int count = 0;
-
-            if (cell.Row - 1 >= 0 
-                && cell.Column - 1 >= 0 
-                && _seed[cell.Row - 1, cell.Column - 1])
+            if ((rowOffset != 0 || columnOffset != 0) &&
+                RowIndexValid(cell.Row + rowOffset) &&
+                ColumnIndexValid(cell.Column + columnOffset))
             {
-                count++;
+                return new Position(cell.Row + rowOffset, cell.Column + columnOffset);
             }
 
-            if (cell.Row - 1 >= 0
-                && _seed[cell.Row - 1, cell.Column])
+            return null;
+        }
+
+        private int CountLiveNeighbours(Position cell) =>
+            CountLiveCellsInRelativeRow(cell, -1)
+            + CountLiveCellsInRelativeRow(cell, 0)
+            + CountLiveCellsInRelativeRow(cell, 1);
+
+        private int CountLiveCellsInRelativeRow(Position cell, int rowOffset)
+        {
+            var count = 0;
+
+            for (var columnOffset = -1; columnOffset <= 1; columnOffset++)
             {
-                count++;
+                var neighbour = GetNeighbouringCell(cell, rowOffset, columnOffset);
+
+                if (neighbour != null && _seed[neighbour.Row, neighbour.Column])
+                {
+                    count++;
+                }
             }
-
-            if (cell.Row - 1 >= 0
-                && cell.Column + 1 <= _seed.GetUpperBound(0) 
-                && _seed[cell.Row - 1, cell.Column + 1])
-            {
-                count++;
-            }
-
-
-            if (cell.Column - 1 <= 0
-                && _seed[cell.Row - 1, cell.Column + 1])
-            {
-                count++;
-            }
-
-
-
-
-
 
             return count;
-
-
         }
 
+        private bool RowIndexValid(int rowIndex) =>
+            rowIndex >= 0 && rowIndex <= _seed.GetUpperBound(0);
 
-        private  bool[,] _seed;
+        private bool ColumnIndexValid(int columnIndex) =>
+            columnIndex >= 0 && columnIndex <= _seed.GetUpperBound(1);
 
-        public GameOfLife(bool[,] seed = null)
-        {
+        private bool[,] _seed;
+
+        public GameOfLife(bool[,] seed = null) =>
             _seed = seed;
-        }
 
         public void Tick()
         {
@@ -70,15 +66,28 @@
                 return;
             }
 
-            if (_seed[0, 0] && _seed[1, 0] && _seed[0, 1] && _seed[1, 1] ||
-                _seed[1, 1] && _seed[2, 1] && _seed[2, 2] && _seed[1, 2] ||
-                _seed[0, 1] && _seed[0, 2] && _seed[1, 1] && _seed[1, 2])
+            var newState = new bool[_seed.GetUpperBound(0) + 1, _seed.GetUpperBound(1) + 1];
+
+            for (var row = 0; row <= _seed.GetUpperBound(0); ++row)
             {
-                return;
+                EvolveRow(row, newState);
             }
 
-            var dimension = _seed.GetUpperBound(0);
-            _seed = new bool[dimension + 1, dimension + 1];
+            _seed = newState;
+        }
+
+        private void EvolveRow(int row, bool[,] newState)
+        {
+            for (var column = 0; column <= _seed.GetUpperBound(1); ++column)
+            {
+                var position = new Position(row, column);
+
+                var liveNeighbours = CountLiveNeighbours(position);
+
+                newState[row, column] =
+                    _seed[row, column] && liveNeighbours == 2 ||
+                        liveNeighbours == 3;
+            }
         }
 
         private bool Equals(GameOfLife other)
@@ -100,10 +109,10 @@
         {
             var gamesAreEqual = true;
 
-            for (var i = 0; i < _seed.GetUpperBound(1); i++)
+            for (var rowIndex = 0; rowIndex < _seed.GetUpperBound(0); rowIndex++)
             {
-                var row = new Row(_seed, i);
-                var otherRow = new Row(other._seed, i);
+                var row = new Row(_seed, rowIndex);
+                var otherRow = new Row(other._seed, rowIndex);
 
                 gamesAreEqual &= row.Equals(otherRow);
             }
@@ -118,9 +127,9 @@
 
         public override int GetHashCode()
         {
-            return (_seed != null 
-                ? _seed.GetHashCode() 
-                : 0);
+            return _seed != null
+                ? _seed.GetHashCode()
+                : 0;
         }
     }
 }

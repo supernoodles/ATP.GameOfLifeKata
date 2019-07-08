@@ -1,5 +1,7 @@
 ﻿namespace ATP.GameOfLifeKata.Source
 {
+    using System;
+
     public class Row
     {
         protected bool Equals(Row other)
@@ -9,6 +11,11 @@
             for (var i = 0; i < _row.Length; i++)
             {
                 rowsAreEqual &= _row[i] == other._row[i];
+
+                if (_row[i] != other._row[i])
+                {
+                    Console.WriteLine($"Diff at {i}");
+                }
             }
 
             return rowsAreEqual;
@@ -24,18 +31,18 @@
 
         public override int GetHashCode()
         {
-            return (_row != null ? _row.GetHashCode() : 0);
+            return _row != null ? _row.GetHashCode() : 0;
         }
 
-        private bool[] _row;
+        private readonly bool[] _row;
 
-        public Row(bool[,]source, int columnIndex)
+        public Row(bool[,]source, int rowIndex)
         {
             _row = new bool[source.GetUpperBound(0)];
 
-            for (int i = 0; i < source.GetUpperBound(0); i++)
+            for (var columnIndex = 0; columnIndex < source.GetUpperBound(1); columnIndex++)
             {
-                _row[i] = source[i, columnIndex];
+                _row[columnIndex] = source[rowIndex, columnIndex];
             }
         }
     }
